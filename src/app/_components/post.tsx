@@ -1,50 +1,22 @@
-"use client";
+'use client'
 
-import { useState } from "react";
+import { Flex, Text, Button, Grid, Box } from '@radix-ui/themes';
+import { useRouter } from 'next/navigation';
 
-import { api } from "~/trpc/react";
+export default function Post({image_url, href, title} : {image_url: string, href: string,  title: string}){
+    const router = useRouter();
 
-export function LatestPost() {
-  const [latestPost] = api.post.getLatest.useSuspenseQuery();
+    const handleClick = (href : string)=> {
+        router.push(href);
+    }
 
-  const utils = api.useUtils();
-  const [name, setName] = useState("");
-  const createPost = api.post.create.useMutation({
-    onSuccess: async () => {
-      await utils.post.invalidate();
-      setName("");
-    },
-  });
-
-  return (
-    <div className="w-full max-w-xs">
-      {latestPost ? (
-        <p className="truncate">Your most recent post: {latestPost.name}</p>
-      ) : (
-        <p>You have no posts yet.</p>
-      )}
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          createPost.mutate({ name });
-        }}
-        className="flex flex-col gap-2"
-      >
-        <input
-          type="text"
-          placeholder="Title"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          className="w-full rounded-full px-4 py-2 text-black"
-        />
-        <button
-          type="submit"
-          className="rounded-full bg-white/10 px-10 py-3 font-semibold transition hover:bg-white/20"
-          disabled={createPost.isPending}
-        >
-          {createPost.isPending ? "Submitting..." : "Submit"}
-        </button>
-      </form>
-    </div>
-  );
+    return (
+        <Box width='256px' height='256px' className='cursor-pointer' onClick={() => handleClick(href)}>
+            <img
+                className="h-full w-full object-cover"
+                src={image_url}
+                alt={title}
+            />
+        </Box>
+    )
 }

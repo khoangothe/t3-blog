@@ -1,5 +1,4 @@
 import "~/styles/globals.css";
-
 import '@radix-ui/themes/styles.css';
 
 import { Theme } from '@radix-ui/themes';
@@ -12,6 +11,7 @@ import { type Metadata } from "next";
 import { TRPCReactProvider } from "~/trpc/react";
 
 import NavBar from "./_components/navbar";
+import { HydrateClient } from "~/trpc/server";
 
 export function ThemeProvider({ children, ...props }: ThemeProviderProps) {
   return <NextThemesProvider {...props}>{children}</NextThemesProvider>
@@ -34,7 +34,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={cn(
-          "min-h-screen bg-background font-sans antialiased",
+          "min-h-screen bg-background font-sans antialiased  overflow-auto",
           fontSans.variable
         )}>
           <ThemeProvider
@@ -52,7 +52,13 @@ export default function RootLayout({
           >
 
           <NavBar/>
-           <TRPCReactProvider>{children}</TRPCReactProvider>
+
+           <TRPCReactProvider>
+            <HydrateClient>
+            {children}
+            </HydrateClient>
+            
+            </TRPCReactProvider>
            
            </Theme> 
 
