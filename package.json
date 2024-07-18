@@ -35,11 +35,14 @@
     "nextjs-progressbar": "^0.0.16",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "remark": "^15.0.1",
+    "remark-html": "^16.0.1",
     "server-only": "^0.0.1",
     "superjson": "^2.2.1",
     "tailwind-merge": "^2.4.0",
     "tailwindcss-animate": "^1.0.7",
     "tailwindcss-classnames": "^3.1.0",
+    "vfile": "^6.0.2",
     "zod": "^3.23.3"
   },
   "devDependencies": {
