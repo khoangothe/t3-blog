@@ -10,12 +10,13 @@ export default async function Home() {
   const allPost = await api.metadata.getAll();
   
   const repeat = allPost.length / 3;
+  console.log(repeat);
 
   return (  
 
       <main>        
         <Section className='flex min-h-screen items-center flex-col'>
-        <Grid className='flex justify-center w-full' gap='3' columns={{ initial: '1', xs: '2', md: '3' }} rows={`repeat(${repeat})`} width="auto">
+        <Grid className='justify-center'  gap='3' columns={{ initial: '1', xs: '2', md: '3' }} rows={`repeat(${repeat}), 256px`}>
           {allPost?.map((post)=>(
             <Suspense key={post.postId} fallback={<PostSkeleton id={post.postId}/>}>
               <Post key={post.postId} image_url={post.imageUrl} title={post.title} href={`/blogs/${post.postId}`}/>

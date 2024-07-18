@@ -1,10 +1,11 @@
 'use client'
 
-import {useState} from "react";
-import MDEditor, { ContextStore, MDEditorProps } from '@uiw/react-md-editor';
+import {Suspense, useState} from "react";
+import MDEditor, { ContextStore} from '@uiw/react-md-editor';
 import { Section,  TextField, Text, Button} from "@radix-ui/themes";
 import { useTheme } from "next-themes"
 import { createPost } from "~/server/queries";
+import  {Spinner}  from "@radix-ui/themes";
 
 export default function App() {
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -16,8 +17,6 @@ export default function App() {
   const currentContent = value ? value : "";
   setContent(currentContent);
 };
-
-
 
   const {theme} = useTheme();
   const defaultTheme: "light" | "dark"  = theme === 'light' ? theme : 'dark';
@@ -42,6 +41,8 @@ export default function App() {
         <Text>
         Content
       </Text>
+      <Suspense fallback={<Spinner />}>
+
         <MDEditor
           data-color-mode={defaultTheme}
           className="w-full h-full mx-auto "
@@ -52,6 +53,7 @@ export default function App() {
           enableScroll={true}
           onChange={handleContentChange}
         />
+        </Suspense>
         <form className="w-full" action={createPost}>
           <input type="hidden" name="content" value={content} />
           <input type="hidden" name="title" value={title} />
@@ -61,6 +63,7 @@ export default function App() {
       
 
     </Section>
+    
 
     );
 }

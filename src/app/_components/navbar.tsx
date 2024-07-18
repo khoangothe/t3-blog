@@ -1,6 +1,6 @@
 import Link from "next/link"
-import Container from "./container"
 import { ModeToggle } from "./modetoggle"
+import { PlusCircledIcon } from "@radix-ui/react-icons"
 
 const routes = [
     {
@@ -30,7 +30,14 @@ export default function NavBar(){
                     <Link className="bg-gradient-to-r from-blue-500 to-purple-500 text-transparent bg-clip-text" key={route.title} href={route.href}>{route.title}</Link>
                     ))}
                 </div>
+                <div className="flex">
                 <ModeToggle/>
+                <Link href={"/blogs/new"}>
+                    <PlusCircledIcon  className="h-full w-6 ml-4">
+
+                    </PlusCircledIcon>
+                </Link>
+                </div>
             </div>
         </nav>
     )
