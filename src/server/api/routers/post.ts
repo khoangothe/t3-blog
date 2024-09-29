@@ -8,8 +8,8 @@ export const postRouter = createTRPCRouter({
     .query(({ ctx, input }) => {
       return ctx.db.post.findUnique({
         where: {
-          postId : input.postId
-        }
-      })
-    })
-})
+          postId: input.postId,
+        },
+      });
+    }),
+});

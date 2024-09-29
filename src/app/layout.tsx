@@ -1,12 +1,12 @@
 import "~/styles/globals.css";
-import '@radix-ui/themes/styles.css';
+import "@radix-ui/themes/styles.css";
 
-import { Theme } from '@radix-ui/themes';
-import { ThemeProvider as NextThemesProvider } from "next-themes"
-import { type ThemeProviderProps } from "next-themes/dist/types"
+import { Theme } from "@radix-ui/themes";
+import { ThemeProvider as NextThemesProvider } from "next-themes";
+import { type ThemeProviderProps } from "next-themes/dist/types";
 
-import { Inter as FontSans } from "next/font/google"
-import cn from 'classnames';
+import { Inter as FontSans } from "next/font/google";
+import cn from "classnames";
 import { type Metadata } from "next";
 import { TRPCReactProvider } from "~/trpc/react";
 
@@ -14,7 +14,7 @@ import NavBar from "./_components/navbar";
 import { HydrateClient } from "~/trpc/server";
 
 export function ThemeProvider({ children, ...props }: ThemeProviderProps) {
-  return <NextThemesProvider {...props}>{children}</NextThemesProvider>
+  return <NextThemesProvider {...props}>{children}</NextThemesProvider>;
 }
 
 export const metadata: Metadata = {
@@ -26,23 +26,25 @@ export const metadata: Metadata = {
 const fontSans = FontSans({
   subsets: ["latin"],
   variable: "--font-sans",
-})
+});
 
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={cn(
-          "min-h-screen bg-background font-sans antialiased  overflow-auto",
-          fontSans.variable
-        )}>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
+      <body
+        className={cn(
+          "min-h-screen overflow-auto bg-background font-sans antialiased",
+          fontSans.variable,
+        )}
+      >
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
           <Theme
             accentColor="mint"
             grayColor="gray"
@@ -50,19 +52,13 @@ export default function RootLayout({
             scaling="100%"
             radius="full"
           >
+            <NavBar />
 
-          <NavBar/>
-
-           <TRPCReactProvider>
-            <HydrateClient>
-            {children}
-            </HydrateClient>
-            
+            <TRPCReactProvider>
+              <HydrateClient>{children}</HydrateClient>
             </TRPCReactProvider>
-           
-           </Theme> 
-
-          </ThemeProvider>     
+          </Theme>
+        </ThemeProvider>
       </body>
     </html>
   );

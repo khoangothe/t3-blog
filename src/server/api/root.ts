@@ -8,9 +8,9 @@ import { metadataRouter } from "./routers/metadata";
  *
  * All routers added in /api/routers should be manually added here.
  */
-export const appRouter  = createTRPCRouter({
+export const appRouter = createTRPCRouter({
   post: postRouter,
-  metadata : metadataRouter
+  metadata: metadataRouter,
 });
 
 // export type definition of API
